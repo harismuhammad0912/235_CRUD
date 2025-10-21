@@ -39,3 +39,21 @@ app.get('/biodata', (req, res) => {
     res.json(results);
   });
 });
+
+app.post('/api/mahasiswa', (req, res) => {
+    const { nama, nim, kelas, prodi } = req.body;
+
+    if (!nama || !nim || !kelas || !prodi) {
+        return res.status(400).json({massage:'nama, nim, kelas, and prodi wajib diisi'});
+    }
+
+    db.query('INSERT INTO mahasiswa (nama, nim, kelas, prodi) VALUES (?, ?, ?, ?)', 
+        [nama, nim, kelas, prodi], (err, result) => {
+        if (err) {
+            console.error('Error inserting data:', err.stack);
+            return res.status(500).json({massage:'Error inserting data'});
+        }   
+        res.status(201).json({massage:'Data mahasiswa berhasil ditambahkan', id: result.insertId});
+    });
+}); 
+

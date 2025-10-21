@@ -57,3 +57,15 @@ app.post('/api/mahasiswa', (req, res) => {
     });
 }); 
 
+app.delete('/api/mahasiswa/:id', (req, res) => {
+    const userId = req.params.id;       
+    db.query('DELETE FROM mahasiswa WHERE id = ?', [userId], (err, result) => {
+        if (err) {      
+                console.error(err);
+                return res.status(500).json({massage:'Database error'});
+        }                   
+        res.json({massage:'Data mahasiswa berhasil dihapus'});
+    }       
+    );
+
+});

@@ -9,3 +9,14 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.listen(port, () => {
+  console.log(Example app listening on port ${port});
+});
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'haris0912',
+  database: 'biodata',
+  port: 3306
+});
